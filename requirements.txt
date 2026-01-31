@@ -1,0 +1,5 @@
+# Harry Potter Flask Dashboard - Requirements
+# Install with: pip install -r requirements.txt
+
+Flask==3.0.0
+Werkzeug==3.0.1

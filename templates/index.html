@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogwarts - Wizarding World Portal</title>
+    <meta name="description"
+        content="Explore the magical world of Harry Potter with quizzes, games, and wizarding information">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital@0;1&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Starfield Background -->
+    <div class="starfield">
+        <div class="stars"></div>
+        <div class="stars"></div>
+        <div class="stars"></div>
+    </div>
+
+    <!-- Floating Magic Particles -->
+    <div class="magic-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-header">
+        <div class="nav-content">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span class="logo-text">HOGWARTS</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#houses">Houses</a></li>
+                <li><a href="#quiz">Quiz</a></li>
+                <li><a href="#games">Games</a></li>
+                <li><a href="#explore">Explore</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <h1 class="hero-title">Welcome to Hogwarts</h1>
+            <p class="hero-subtitle">"Draco Dormiens Nunquam Titillandus"</p>
+            <div class="wand-divider"></div>
+            <p class="hero-subtitle">Discover the magic within you</p>
+        </section>
+
+        <!-- Houses Section -->
+        <section id="houses" class="houses-section">
+            <h2 class="section-title">⚔️ The Four Houses ⚔️</h2>
+            <div class="houses-grid">
+                <!-- Gryffindor -->
+                <div class="house-card gryffindor">
+                    <span class="house-icon">🦁</span>
+                    <h3 class="house-name">Gryffindor</h3>
+                    <p class="house-motto">"Where dwell the brave at heart"</p>
+                    <div class="house-traits">
+                        <span class="trait-tag">Courage</span>
+                        <span class="trait-tag">Bravery</span>
+                        <span class="trait-tag">Chivalry</span>
+                        <span class="trait-tag">Daring</span>
+                    </div>
+                </div>
+
+                <!-- Slytherin -->
+                <div class="house-card slytherin">
+                    <span class="house-icon">🐍</span>
+                    <h3 class="house-name">Slytherin</h3>
+                    <p class="house-motto">"Those cunning folk use any means"</p>
+                    <div class="house-traits">
+                        <span class="trait-tag">Ambition</span>
+                        <span class="trait-tag">Cunning</span>
+                        <span class="trait-tag">Leadership</span>
+                        <span class="trait-tag">Resourcefulness</span>
+                    </div>
+                </div>
+
+                <!-- Hufflepuff -->
+                <div class="house-card hufflepuff">
+                    <span class="house-icon">🦡</span>
+                    <h3 class="house-name">Hufflepuff</h3>
+                    <p class="house-motto">"Where they are just and loyal"</p>
+                    <div class="house-traits">
+                        <span class="trait-tag">Loyalty</span>
+                        <span class="trait-tag">Patience</span>
+                        <span class="trait-tag">Hard Work</span>
+                        <span class="trait-tag">Fairness</span>
+                    </div>
+                </div>
+
+                <!-- Ravenclaw -->
+                <div class="house-card ravenclaw">
+                    <span class="house-icon">🦅</span>
+                    <h3 class="house-name">Ravenclaw</h3>
+                    <p class="house-motto">"Wit beyond measure is man's greatest treasure"</p>
+                    <div class="house-traits">
+                        <span class="trait-tag">Wisdom</span>
+                        <span class="trait-tag">Creativity</span>
+                        <span class="trait-tag">Intelligence</span>
+                        <span class="trait-tag">Learning</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="quiz-section">
+            <h2 class="section-title">🎩 Sorting Hat Ceremony 🎩</h2>
+            <div class="quiz-container">
+                <div class="sorting-hat">🎩</div>
+
+                <!-- Quiz Intro -->
+                <div class="quiz-intro" id="quizIntro">
+                    <h2>Discover Your True House</h2>
+                    <p>Answer these questions honestly, and the Sorting Hat will reveal where you truly belong...</p>
+                    <button class="start-quiz-btn" onclick="startQuiz()">Begin the Ceremony</button>
+                </div>
+
+                <!-- Quiz Questions Container -->
+                <div id="quizQuestions"></div>
+
+                <!-- Quiz Progress -->
+                <div class="quiz-progress" id="quizProgress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text" id="progressText">Question 1 of 8</p>
+                </div>
+
+                <!-- Quiz Result -->
+                <div class="quiz-result" id="quizResult">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <h2 class="result-house" id="resultHouse"></h2>
+                    <p class="result-description" id="resultDescription"></p>
+                    <button class="restart-btn" onclick="restartQuiz()">Take the Quiz Again</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="games-section">
+            <h2 class="section-title">🎮 Magical Mini Games 🎮</h2>
+            <div class="games-grid">
+                <!-- Memory Game Card -->
+                <div class="game-card">
+                    <div class="game-icon">🃏</div>
+                    <h3>Spell Memory Match</h3>
+                    <p>Test your memory by matching pairs of magical spells. Can you remember where each spell is
+                        hidden?</p>
+                    <button class="play-btn" onclick="toggleMemoryGame()">Play Now</button>
+
+                    <div class="memory-game-container" id="memoryGame">
+                        <div class="memory-grid" id="memoryGrid"></div>
+                        <div class="game-stats">
+                            <span>Moves: <span id="moveCount">0</span></span>
+                            <span>Matches: <span id="matchCount">0</span>/6</span>
+                        </div>
+                        <button class="play-btn" style="margin-top: 15px;" onclick="resetMemoryGame()">Reset
+                            Game</button>
+                    </div>
+                </div>
+
+                <!-- Trivia Game Card -->
+                <div class="game-card">
+                    <div class="game-icon">❓</div>
+                    <h3>Wizard Trivia</h3>
+                    <p>Test your knowledge of the Wizarding World with challenging trivia questions!</p>
+                    <button class="play-btn" onclick="toggleTriviaGame()">Play Now</button>
+
+                    <div class="trivia-container" id="triviaGame">
+                        <div class="trivia-question" id="triviaQuestionContainer">
+                            <p id="triviaQuestion"></p>
+                            <div class="trivia-options" id="triviaOptions"></div>
+                        </div>
+                        <div class="trivia-score" id="triviaScore">Score: 0/10</div>
+                        <button class="play-btn" style="margin-top: 15px;" onclick="resetTriviaGame()">New Game</button>
+                    </div>
+                </div>
+
+                <!-- Snitch Game Card -->
+                <div class="game-card">
+                    <div class="game-icon">⚡</div>
+                    <h3>Catch the Snitch</h3>
+                    <p>The Golden Snitch is on the loose! Click on it as many times as you can before time runs out!</p>
+                    <button class="play-btn" onclick="toggleSnitchGame()">Play Now</button>
+
+                    <div class="snitch-container" id="snitchGame">
+                        <div class="snitch-score">Caught: <span id="snitchCount">0</span></div>
+                        <div class="snitch-timer">Time: <span id="snitchTimer">30</span>s</div>
+                        <div class="snitch" id="snitch" onclick="catchSnitch()">⚽</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Explore/Info Section -->
+        <section id="explore" class="info-section">
+            <h2 class="section-title">📚 Wizarding Encyclopedia 📚</h2>
+            <div class="info-grid">
+                <!-- Characters -->
+                <div class="info-card">
+                    <h3>🧙 Famous Wizards</h3>
+                    <ul class="info-list">
+                        <li>⚡ Harry Potter - The Boy Who Lived</li>
+                        <li>📚 Hermione Granger - The Brightest Witch</li>
+                        <li>🏰 Albus Dumbledore - Greatest Headmaster</li>
+                        <li>🦉 Severus Snape - The Half-Blood Prince</li>
+                        <li>🐺 Remus Lupin - The Werewolf Professor</li>
+                        <li>⭐ Sirius Black - The Godfather</li>
+                    </ul>
+                </div>
+
+                <!-- Spells -->
+                <div class="info-card">
+                    <h3>✨ Essential Spells</h3>
+                    <ul class="info-list">
+                        <li class="spell-item">
+                            <span>Expelliarmus</span>
+                            <span class="spell-effect">Disarms opponent</span>
+                        </li>
+                        <li class="spell-item">
+                            <span>Lumos</span>
+                            <span class="spell-effect">Creates light</span>
+                        </li>
+                        <li class="spell-item">
+                            <span>Expecto Patronum</span>
+                            <span class="spell-effect">Summons Patronus</span>
+                        </li>
+                        <li class="spell-item">
+                            <span>Accio</span>
+                            <span class="spell-effect">Summons objects</span>
+                        </li>
+                        <li class="spell-item">
+                            <span>Wingardium Leviosa</span>
+                            <span class="spell-effect">Levitation</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Locations -->
+                <div class="info-card">
+                    <h3>🏰 Magical Places</h3>
+                    <ul class="info-list">
+                        <li>🏰 Hogwarts School of Witchcraft</li>
+                        <li>🏦 Gringotts Wizarding Bank</li>
+                        <li>🛒 Diagon Alley</li>
+                        <li>🏠 The Burrow</li>
+                        <li>🌲 Forbidden Forest</li>
+                        <li>🏘️ Hogsmeade Village</li>
+                    </ul>
+                </div>
+
+                <!-- Creatures -->
+                <div class="info-card">
+                    <h3>🐉 Magical Creatures</h3>
+                    <ul class="info-list">
+                        <li>🦅 Hippogriff (Buckbeak)</li>
+                        <li>🦉 Owls (Hedwig)</li>
+                        <li>🐍 Basilisk</li>
+                        <li>🧚 House Elves (Dobby)</li>
+                        <li>🐉 Hungarian Horntail</li>
+                        <li>🦄 Unicorns</li>
+                    </ul>
+                </div>
+
+                <!-- Quidditch -->
+                <div class="info-card">
+                    <h3>🏆 Quidditch</h3>
+                    <ul class="info-list">
+                        <li>⚽ Quaffle - 10 points</li>
+                        <li>🔴 Bludgers - Defensive balls</li>
+                        <li>✨ Golden Snitch - 150 points</li>
+                        <li>🧹 Nimbus 2000</li>
+                        <li>🧹 Firebolt</li>
+                        <li>🏆 Quidditch World Cup</li>
+                    </ul>
+                </div>
+
+                <!-- Houses Info -->
+                <div class="info-card">
+                    <h3>🏠 House Founders</h3>
+                    <ul class="info-list">
+                        <li>🦁 Godric Gryffindor</li>
+                        <li>🐍 Salazar Slytherin</li>
+                        <li>🦡 Helga Hufflepuff</li>
+                        <li>🦅 Rowena Ravenclaw</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Made with <span class="magic-text">✨ magic ✨</span> for Harry Potter fans</p>
+            <p style="margin-top: 10px; font-size: 0.8rem;">The Wizarding World awaits...</p>
+        </footer>
+    </div>
+
+    <script>
+        // =============================================
+        // SORTING HAT QUIZ
+        // =============================================
+        const quizQuestions = [
+            {
+                question: "When facing a difficult challenge, you tend to:",
+                options: [
+                    { text: "Charge in headfirst with courage", house: "gryffindor" },
+                    { text: "Carefully plan the best strategy", house: "slytherin" },
+                    { text: "Work steadily and patiently", house: "hufflepuff" },
+                    { text: "Analyze and find a creative solution", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "Which quality do you value most in yourself?",
+                options: [
+                    { text: "Bravery and standing up for others", house: "gryffindor" },
+                    { text: "Ambition and achieving my goals", house: "slytherin" },
+                    { text: "Loyalty and kindness to all", house: "hufflepuff" },
+                    { text: "Intelligence and wisdom", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "On a free afternoon, you would most likely:",
+                options: [
+                    { text: "Go on an exciting adventure", house: "gryffindor" },
+                    { text: "Work on personal projects and goals", house: "slytherin" },
+                    { text: "Spend time with friends and family", house: "hufflepuff" },
+                    { text: "Read books or learn something new", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "If you found a powerful magical artifact, you would:",
+                options: [
+                    { text: "Use it to protect those in need", house: "gryffindor" },
+                    { text: "Study its power for personal gain", house: "slytherin" },
+                    { text: "Share its benefits with everyone", house: "hufflepuff" },
+                    { text: "Research its history and origins", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "Your friends would describe you as:",
+                options: [
+                    { text: "Bold and adventurous", house: "gryffindor" },
+                    { text: "Determined and resourceful", house: "slytherin" },
+                    { text: "Reliable and caring", house: "hufflepuff" },
+                    { text: "Thoughtful and creative", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "Which magical creature appeals to you most?",
+                options: [
+                    { text: "Phoenix - symbol of rebirth", house: "gryffindor" },
+                    { text: "Serpent - mysterious and powerful", house: "slytherin" },
+                    { text: "Badger - humble and hardworking", house: "hufflepuff" },
+                    { text: "Eagle - wise and perceptive", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "When someone wrongs you, you:",
+                options: [
+                    { text: "Confront them directly", house: "gryffindor" },
+                    { text: "Remember and plan your response", house: "slytherin" },
+                    { text: "Try to understand and forgive", house: "hufflepuff" },
+                    { text: "Reflect on why it happened", house: "ravenclaw" }
+                ]
+            },
+            {
+                question: "What would you see in the Mirror of Erised?",
+                options: [
+                    { text: "Myself as a hero, saving others", house: "gryffindor" },
+                    { text: "Myself as powerful and successful", house: "slytherin" },
+                    { text: "Surrounded by loved ones, happy", house: "hufflepuff" },
+                    { text: "Discovering all secrets of magic", house: "ravenclaw" }
+                ]
+            }
+        ];
+
+        let currentQuestion = 0;
+        let scores = { gryffindor: 0, slytherin: 0, hufflepuff: 0, ravenclaw: 0 };
+
+        function startQuiz() {
+            document.getElementById('quizIntro').style.display = 'none';
+            document.getElementById('quizProgress').style.display = 'block';
+            currentQuestion = 0;
+            scores = { gryffindor: 0, slytherin: 0, hufflepuff: 0, ravenclaw: 0 };
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const container = document.getElementById('quizQuestions');
+            const q = quizQuestions[currentQuestion];
+
+            container.innerHTML = `
+                <div class="question-container active">
+                    <p class="question-number">Question ${currentQuestion + 1} of ${quizQuestions.length}</p>
+                    <p class="question-text">${q.question}</p>
+                    <div class="options">
+                        ${q.options.map((opt, i) => `
+                            <button class="option-btn" onclick="selectAnswer('${opt.house}')">${opt.text}</button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            updateProgress();
+        }
+
+        function selectAnswer(house) {
+            scores[house]++;
+            currentQuestion++;
+
+            if (currentQuestion < quizQuestions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion) / quizQuestions.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+        }
+
+        function showResult() {
+            document.getElementById('quizQuestions').innerHTML = '';
+            document.getElementById('quizProgress').style.display = 'none';
+            document.getElementById('quizResult').classList.add('active');
+
+            const house = Object.entries(scores).reduce((a, b) => a[1] > b[1] ? a : b)[0];
+
+            const houseData = {
+                gryffindor: {
+                    icon: '🦁',
+                    name: 'GRYFFINDOR!',
+                    description: 'You belong in Gryffindor, where dwell the brave at heart! Your courage, nerve, and chivalry set you apart. Like Harry Potter, Hermione Granger, and Ron Weasley, you are destined for greatness!'
+                },
+                slytherin: {
+                    icon: '🐍',
+                    name: 'SLYTHERIN!',
+                    description: 'You belong in Slytherin, where you will find your true friends! Your ambition, cunning, and determination will lead you to achieve great things. Like Merlin and many great wizards before you!'
+                },
+                hufflepuff: {
+                    icon: '🦡',
+                    name: 'HUFFLEPUFF!',
+                    description: 'You belong in Hufflepuff, where they are just and loyal! Your patience, dedication, and fair play make you a true friend. Like Newt Scamander and Cedric Diggory, your kindness is your strength!'
+                },
+                ravenclaw: {
+                    icon: '🦅',
+                    name: 'RAVENCLAW!',
+                    description: 'You belong in Ravenclaw, where those of wit and learning will always find their kind! Your wisdom, creativity, and love of knowledge set you apart. Like Luna Lovegood, you see the world differently!'
+                }
+            };
+
+            document.getElementById('resultIcon').textContent = houseData[house].icon;
+            document.getElementById('resultHouse').textContent = houseData[house].name;
+            document.getElementById('resultHouse').style.color = getHouseColor(house);
+            document.getElementById('resultDescription').textContent = houseData[house].description;
+        }
+
+        function getHouseColor(house) {
+            const colors = {
+                gryffindor: '#D3A625',
+                slytherin: '#1A472A',
+                hufflepuff: '#FFD800',
+                ravenclaw: '#946B2D'
+            };
+            return colors[house];
+        }
+
+        function restartQuiz() {
+            document.getElementById('quizResult').classList.remove('active');
+            document.getElementById('quizIntro').style.display = 'block';
+        }
+
+        // =============================================
+        // MEMORY GAME
+        // =============================================
+        const spellCards = ['⚡', '🌟', '🔥', '💫', '🌙', '✨'];
+        let memoryCards = [];
+        let flippedCards = [];
+        let matchedPairs = 0;
+        let moves = 0;
+
+        function toggleMemoryGame() {
+            const game = document.getElementById('memoryGame');
+            game.classList.toggle('active');
+            if (game.classList.contains('active')) {
+                initMemoryGame();
+            }
+        }
+
+        function initMemoryGame() {
+            memoryCards = [...spellCards, ...spellCards].sort(() => Math.random() - 0.5);
+            flippedCards = [];
+            matchedPairs = 0;
+            moves = 0;
+            updateMemoryStats();
+
+            const grid = document.getElementById('memoryGrid');
+            grid.innerHTML = memoryCards.map((card, i) => `
+                <div class="memory-card" data-index="${i}" onclick="flipCard(${i})">❓</div>
+            `).join('');
+        }
+
+        function flipCard(index) {
+            const cards = document.querySelectorAll('.memory-card');
+            const card = cards[index];
+
+            if (flippedCards.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) {
+                return;
+            }
+
+            card.textContent = memoryCards[index];
+            card.classList.add('flipped');
+            flippedCards.push({ index, value: memoryCards[index] });
+
+            if (flippedCards.length === 2) {
+                moves++;
+                updateMemoryStats();
+
+                if (flippedCards[0].value === flippedCards[1].value) {
+                    cards[flippedCards[0].index].classList.add('matched');
+                    cards[flippedCards[1].index].classList.add('matched');
+                    matchedPairs++;
+                    flippedCards = [];
+                    updateMemoryStats();
+
+                    if (matchedPairs === 6) {
+                        setTimeout(() => alert('🎉 Congratulations! You matched all spells!'), 300);
+                    }
+                } else {
+                    setTimeout(() => {
+                        cards[flippedCards[0].index].textContent = '❓';
+                        cards[flippedCards[1].index].textContent = '❓';
+                        cards[flippedCards[0].index].classList.remove('flipped');
+                        cards[flippedCards[1].index].classList.remove('flipped');
+                        flippedCards = [];
+                    }, 1000);
+                }
+            }
+        }
+
+        function updateMemoryStats() {
+            document.getElementById('moveCount').textContent = moves;
+            document.getElementById('matchCount').textContent = matchedPairs;
+        }
+
+        function resetMemoryGame() {
+            initMemoryGame();
+        }
+
+        // =============================================
+        // TRIVIA GAME
+        // =============================================
+        const triviaQuestions = [
+            { q: "What is Harry Potter's Patronus?", options: ["Otter", "Stag", "Wolf", "Phoenix"], correct: 1 },
+            { q: "Who is the Half-Blood Prince?", options: ["Harry", "Voldemort", "Snape", "Dumbledore"], correct: 2 },
+            { q: "What position does Harry play in Quidditch?", options: ["Chaser", "Keeper", "Beater", "Seeker"], correct: 3 },
+            { q: "What is the name of Hagrid's dragon?", options: ["Norbert", "Fang", "Buckbeak", "Fluffy"], correct: 0 },
+            { q: "How many Horcruxes did Voldemort create?", options: ["5", "6", "7", "8"], correct: 2 },
+            { q: "What is the core of Harry's wand?", options: ["Unicorn Hair", "Dragon Heartstring", "Phoenix Feather", "Thestral Hair"], correct: 2 },
+            { q: "Who killed Sirius Black?", options: ["Voldemort", "Bellatrix", "Snape", "Lucius"], correct: 1 },
+            { q: "What spell opens locked doors?", options: ["Lumos", "Alohomora", "Accio", "Expelliarmus"], correct: 1 },
+            { q: "What is Hermione's cat's name?", options: ["Hedwig", "Scabbers", "Crookshanks", "Trevor"], correct: 2 },
+            { q: "Which house's common room is near the kitchens?", options: ["Gryffindor", "Slytherin", "Ravenclaw", "Hufflepuff"], correct: 3 }
+        ];
+
+        let currentTrivia = 0;
+        let triviaScore = 0;
+
+        function toggleTriviaGame() {
+            const game = document.getElementById('triviaGame');
+            game.classList.toggle('active');
+            if (game.classList.contains('active')) {
+                initTriviaGame();
+            }
+        }
+
+        function initTriviaGame() {
+            currentTrivia = 0;
+            triviaScore = 0;
+            showTriviaQuestion();
+        }
+
+        function showTriviaQuestion() {
+            if (currentTrivia >= triviaQuestions.length) {
+                document.getElementById('triviaQuestionContainer').innerHTML = `
+                    <h3 style="color: var(--text-gold); margin-bottom: 20px;">Quiz Complete!</h3>
+                    <p>Your final score: ${triviaScore}/${triviaQuestions.length}</p>
+                    <p style="margin-top: 10px;">${triviaScore >= 8 ? '🎉 Outstanding!' : triviaScore >= 5 ? '✨ Good job!' : '📚 Keep studying!'}</p>
+                `;
+                return;
+            }
+
+            const q = triviaQuestions[currentTrivia];
+            document.getElementById('triviaQuestion').textContent = q.q;
+            document.getElementById('triviaOptions').innerHTML = q.options.map((opt, i) => `
+                <button class="trivia-option" onclick="checkTriviaAnswer(${i}, ${q.correct})">${opt}</button>
+            `).join('');
+            document.getElementById('triviaScore').textContent = `Score: ${triviaScore}/${triviaQuestions.length}`;
+        }
+
+        function checkTriviaAnswer(selected, correct) {
+            const options = document.querySelectorAll('.trivia-option');
+            options.forEach((opt, i) => {
+                opt.disabled = true;
+                if (i === correct) opt.classList.add('correct');
+                if (i === selected && selected !== correct) opt.classList.add('incorrect');
+            });
+
+            if (selected === correct) triviaScore++;
+
+            setTimeout(() => {
+                currentTrivia++;
+                showTriviaQuestion();
+            }, 1000);
+        }
+
+        function resetTriviaGame() {
+            initTriviaGame();
+        }
+
+        // =============================================
+        // SNITCH GAME
+        // =============================================
+        let snitchCount = 0;
+        let snitchTimer = 30;
+        let snitchInterval = null;
+        let snitchGameActive = false;
+
+        function toggleSnitchGame() {
+            const game = document.getElementById('snitchGame');
+            game.classList.toggle('active');
+            if (game.classList.contains('active')) {
+                startSnitchGame();
+            } else {
+                stopSnitchGame();
+            }
+        }
+
+        function startSnitchGame() {
+            snitchCount = 0;
+            snitchTimer = 30;
+            snitchGameActive = true;
+            document.getElementById('snitchCount').textContent = snitchCount;
+            document.getElementById('snitchTimer').textContent = snitchTimer;
+            moveSnitch();
+
+            snitchInterval = setInterval(() => {
+                snitchTimer--;
+                document.getElementById('snitchTimer').textContent = snitchTimer;
+
+                if (snitchTimer <= 0) {
+                    stopSnitchGame();
+                    alert(`⚡ Time's up! You caught ${snitchCount} snitches!`);
+                }
+            }, 1000);
+        }
+
+        function stopSnitchGame() {
+            snitchGameActive = false;
+            if (snitchInterval) {
+                clearInterval(snitchInterval);
+                snitchInterval = null;
+            }
+        }
+
+        function moveSnitch() {
+            if (!snitchGameActive) return;
+
+            const snitch = document.getElementById('snitch');
+            const container = document.getElementById('snitchGame');
+            const maxX = container.clientWidth - 50;
+            const maxY = container.clientHeight - 100;
+
+            snitch.style.left = Math.random() * maxX + 'px';
+            snitch.style.top = (Math.random() * maxY + 60) + 'px';
+        }
+
+        function catchSnitch() {
+            if (!snitchGameActive) return;
+            snitchCount++;
+            document.getElementById('snitchCount').textContent = snitchCount;
+            moveSnitch();
+        }
+
+        // Move snitch randomly while game is active
+        setInterval(() => {
+            if (snitchGameActive) moveSnitch();
+        }, 1500);
+
+        // =============================================
+        // SMOOTH SCROLL FOR NAV
+        // =============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
