@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Family - The Super Dashboard</title>
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary: #4cc9f0;
+            --secondary: #4895ef;
+            --info: #4361ee;
+            --success: #4895ef;
+            --warning: #f72585;
+            --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            --accent: #f72585;
+            --text-main: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Creative Background Elements */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(76, 201, 240, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-1 {
+            top: -100px;
+            left: -100px;
+        }
+
+        .blob-2 {
+            bottom: -100px;
+            right: -100px;
+            background: radial-gradient(circle, rgba(247, 37, 133, 0.15) 0%, transparent 70%);
+        }
+
+        @keyframes move {
+            from {
+                transform: translate(0, 0) scale(1);
+            }
+
+            to {
+                transform: translate(100px, 100px) scale(1.2);
+            }
+        }
+
+        /* Glass Utility */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            padding: 15px 30px;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 10px 30px;
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #4cc9f0, #f72585);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            margin-bottom: 20px;
+            animation: fadeInStep 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            animation: fadeInStep 1.5s ease-out;
+        }
+
+        @keyframes fadeInStep {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Container */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        section {
+            margin-bottom: 150px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        /* Phil's-osophy Generator */
+        .generator-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-text {
+            font-size: 2rem;
+            font-style: italic;
+            margin: 30px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .gen-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(76, 201, 240, 0.4);
+        }
+
+        .gen-btn:hover {
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 6px 20px rgba(76, 201, 240, 0.6);
+        }
+
+        /* Family Tree Cards */
+        .family-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .family-card {
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .family-card:hover {
+            transform: translateY(-15px) rotate(2deg);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .family-card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .member-list {
+            list-style: none;
+        }
+
+        .member-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--glass-border);
+            font-size: 0.95rem;
+        }
+
+        /* Quiz UI */
+        .quiz-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-question {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            color: var(--text-main);
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .answer-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 20px;
+            border-radius: 15px;
+            color: var(--text-main);
+            text-align: left;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: inherit;
+        }
+
+        .answer-btn:hover {
+            background: var(--glass-bg);
+            border-color: var(--primary);
+            transform: translateX(10px);
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+            animation: zoomIn 0.5s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-name {
+            font-size: 3rem;
+            color: var(--primary);
+            margin: 20px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* Watch Link Card */
+        .cta-section {
+            text-align: center;
+        }
+
+        .cta-card {
+            padding: 60px;
+            display: inline-block;
+            max-width: 800px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(76, 201, 240, 0.1) 0%, transparent 60%);
+            z-index: -1;
+        }
+
+        .cta-link {
+            font-size: 2rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 800;
+            display: block;
+            margin-top: 30px;
+            transition: 0.3s;
+        }
+
+        .cta-link:hover {
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 20px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+        }
+
+        /* Accessibility/Utilities */
+        .highlight {
+            color: var(--primary);
+        }
+
+        .accent {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+
+    <nav class="glass">
+        <div class="logo">ModernFamily.HUB</div>
+        <div class="nav-links">
+            <a href="#hero">Start</a>
+            <a href="#households">Families</a>
+            <a href="#philosophy">Advice</a>
+            <a href="#quiz">Quiz</a>
+            <a href="#watch">Watch</a>
+        </div>
+    </nav>
+
+    <header class="hero" id="hero">
+        <p class="accent">THE COMPLETE GUIDE TO THE</p>
+        <h1>Modern <br><span class="highlight">Family</span></h1>
+        <p>A mockumentary about the complicated, messy, and hilarious lives of the Pritchett-Dunphy clan.</p>
+        <div class="scroll-indicator"><i data-lucide="chevron-down"></i></div>
+    </header>
+
+    <main class="main-content">
+
+        <!-- Households Section -->
+        <section id="households">
+            <div class="section-header">
+                <h2>The <span class="accent">Households</span></h2>
+                <p>Three families, one huge dysfunctional heart.</p>
+            </div>
+            <div class="family-grid">
+                <div class="family-card glass">
+                    <i data-lucide="home" class="accent"></i>
+                    <h3>The Dunphys</h3>
+                    <p class="text-dim" style="margin-bottom: 15px;">High tension, high love.</p>
+                    <ul class="member-list">
+                        <li><strong>Phil:</strong> Magic, realtor, cool-dad.</li>
+                        <li><strong>Claire:</strong> Organizing the chaos.</li>
+                        <li><strong>The Kids:</strong> Haley, Alex, & Luke.</li>
+                    </ul>
+                </div>
+                <div class="family-card glass">
+                    <i data-lucide="dog" class="highlight"></i>
+                    <h3>Pritchett-Delgado</h3>
+                    <p class="text-dim" style="margin-bottom: 15px;">Old school meets Colombia.</p>
+                    <ul class="member-list">
+                        <li><strong>Jay:</strong> Closet king, grumpy heart.</li>
+                        <li><strong>Gloria:</strong> Fire and passion.</li>
+                        <li><strong>The Boys:</strong> Manny & Joe.</li>
+                    </ul>
+                </div>
+                <div class="family-card glass">
+                    <i data-lucide="palette" style="color: #4895ef;"></i>
+                    <h3>Pritchett-Tucker</h3>
+                    <p class="text-dim" style="margin-bottom: 15px;">Dramatic and heartfelt.</p>
+                    <ul class="member-list">
+                        <li><strong>Mitchell:</strong> The straight man.</li>
+                        <li><strong>Cameron:</strong> Farm boy / Clown extraordinaire.</li>
+                        <li><strong>Lily:</strong> Pure sass power.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Phil's-osophy Generator -->
+        <section id="philosophy">
+            <div class="section-header">
+                <h2>Phil's-<span class="highlight">osophy</span></h2>
+                <p>Life lessons from the realest estate agent in California.</p>
+            </div>
+            <div class="generator-container glass">
+                <i data-lucide="book-open" size="48" color="#4cc9f0"></i>
+                <div class="philosophy-text" id="adviceOutput">
+                    "If you love something, set it free. Unless it's a tiger."
+                </div>
+                <button class="gen-btn" onclick="generateAdvice()">Get New Wisdom</button>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz">
+            <div class="section-header">
+                <h2>Which <span class="accent">Character</span> Are You?</h2>
+                <p>Answer truthfully. Nobody's watching (except the cameras).</p>
+            </div>
+            <div class="quiz-box glass">
+                <div id="quizContent">
+                    <div class="quiz-question" id="questionText">How do you handle a minor crisis?</div>
+                    <div class="answers-grid" id="answerOptions">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+                <div class="result-container" id="quizResult">
+                    <p>You are definitely:</p>
+                    <div class="result-name" id="finalCharacter">...</div>
+                    <p id="resultDesc" class="text-dim"></p>
+                    <button class="gen-btn" style="margin-top: 30px;" onclick="resetQuiz()">Take it Again</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Watch Section -->
+        <section id="watch" class="cta-section">
+            <div class="cta-card glass">
+                <h2>Ready to <span class="highlight">Binge</span>?</h2>
+                <p>Experience all 11 seasons of laughter, tears, and double-meanings.</p>
+                <a href="https://www.google.com/search?gs_ssp=eJzj4tLP1TcwrSoyqMgxYPTizc1PSS3KU0hLzM3MqQQAdHAI9A&q=modern+family&oq=modern&gs_lcrp=EgZjaHJvbWUqDwgBEC4YQxixAxiABBiKBTIRCAAQRRg5GEMYsQMYgAQYigUyDwgBEC4YQxixAxiABBiKBTIPCAIQABhDGLEDGIAEGIoFMg8IAxAuGEMYsQMYgAQYigUyDAgEEC4YQxiABBiKBTIMCAUQABhDGIAEGIoFMgwIBhAAGEMYgAQYigUyDAgHEAAYQxiABBiKBTIHCAgQABiABDIHCAkQABiPAtIBCTM4NzhqMWoxNagCDLACAfEFQm_4bmgsz_k&sourceid=chrome&ie=UTF-8"
+                    class="cta-link" target="_blank">
+                    EXPLORE ON GOOGLE <i data-lucide="external-link"></i>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Modern Family Fan Hub &bull; 2026 &bull; Done with <span class="accent">♥</span></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Init Lucide
+        lucide.createIcons();
+
+        // Scroll Animation (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(sec => observer.observe(sec));
+
+        // Phil's-osophy Data
+        const philosophyQuotes = [
+            "If you love something, set it free. Unless it's a tiger.",
+            "Watch a sunrise at least once a day.",
+            "If you're ever in a jam, a lawyer would be a better friend than a sandwich.",
+            "The most amazing things that can happen to a human being will happen to you if you just lower your expectations.",
+            "When life gives you lemonade, make lemons. Life will be all like, 'What?!'",
+            "You can tell a lot about a person from his biography.",
+            "Always be a unicorn. Unless you can be a shark.",
+            "Marry someone who looks sexy while eating a sandwich."
+        ];
+
+        function generateAdvice() {
+            const out = document.getElementById('adviceOutput');
+            out.style.opacity = 0;
+            setTimeout(() => {
+                const rand = philosophyQuotes[Math.floor(Math.random() * philosophyQuotes.length)];
+                out.innerText = `"${rand}"`;
+                out.style.opacity = 1;
+            }, 300);
+        }
+
+        // Quiz Logic
+        const quizData = [
+            {
+                q: "Your perfect Saturday involves...",
+                a: [
+                    { t: "Magic tricks and skating", p: "Phil" },
+                    { t: "Cleaning and scheduling", p: "Claire" },
+                    { t: "A nice scotch and silence", p: "Jay" },
+                    { t: "Theatrical farm stories", p: "Cam" }
+                ]
+            },
+            {
+                q: "Someone insults your outfit. You...",
+                a: [
+                    { t: "Don't notice, you're having fun", p: "Phil" },
+                    { t: "Argue until they admit you're right", p: "Claire" },
+                    { t: "Stare them down silently", p: "Jay" },
+                    { t: "Make a dramatic exit with a gasp", p: "Cam" }
+                ]
+            }
+        ];
+
+        let currentQ = 0;
+        let points = {};
+
+        function initQuiz() {
+            const container = document.getElementById('answerOptions');
+            const qText = document.getElementById('questionText');
+
+            if (currentQ >= quizData.length) {
+                showResult();
+                return;
+            }
+
+            const data = quizData[currentQ];
+            qText.innerText = data.q;
+            container.innerHTML = '';
+
+            data.a.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.innerText = opt.t;
+                btn.onclick = () => {
+                    points[opt.p] = (points[opt.p] || 0) + 1;
+                    currentQ++;
+                    initQuiz();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        function showResult() {
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('quizResult').style.display = 'block';
+
+            let winner = 'Phil';
+            let max = 0;
+            for (let p in points) {
+                if (points[p] > max) { max = points[p]; winner = p; }
+            }
+
+            const descs = {
+                'Phil': 'The ultimate cool dad. You see the world through a lens of magic and optimism.',
+                'Claire': 'The glue. You are passionate, organized, and maybe slightly competitive.',
+                'Jay': 'The patriarch. You value tradition, quality scotch, and your space.',
+                'Cam': 'The performer. Your life is a stage and every moment is an opening night.'
+            };
+
+            document.getElementById('finalCharacter').innerText = winner + " Dunphy!";
+            if (winner === 'Jay' || winner === 'Cam') {
+                document.getElementById('finalCharacter').innerText = winner + " Pritchett!";
+            }
+            document.getElementById('resultDesc').innerText = descs[winner];
+        }
+
+        function resetQuiz() {
+            currentQ = 0;
+            points = {};
+            document.getElementById('quizContent').style.display = 'block';
+            document.getElementById('quizResult').style.display = 'none';
+            initQuiz();
+        }
+
+        initQuiz();
+
+        // Navbar effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+    </script>
+</body>
+
+</html>
