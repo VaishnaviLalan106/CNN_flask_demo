@@ -1,5 +1,4 @@
-# CNN_flask_demo
-Live Version :https://cnn-flask-demo-1-ln5m.onrender.com/
+
 # cnn_model_demo
 
 A multi-page Flask web application showcasing **three different themed websites** served from a **single backend project** using Flask routing. Each website is rendered based on a unique route, demonstrating how multiple frontends can coexist within one deployed application.
